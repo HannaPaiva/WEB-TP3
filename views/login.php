@@ -129,12 +129,12 @@ if (isset($_SESSION["user"])){
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Login</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Bem vindo a FTLam! 👋</h4>
-              <form id="formAuthentication" class="mb-3" action="../php/login.php" method="POST">
+              <h4 class="mb-2">Bem vindo a FTLam!</h4>
+              <form id="formAuthentication" class="mb-3" action="../php/processlogin.php" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input
@@ -148,7 +148,7 @@ if (isset($_SESSION["user"])){
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Palavra-Passe</label>
+                    <label class="form-label" for="password">Password</label>
                   </div>
                   <div class="input-group input-group-merge">
                     <input
@@ -175,7 +175,7 @@ if (isset($_SESSION["user"])){
 
               <p class="text-center">
                 <span>Primeira vez no site?</span>
-                <a href="auth-register-basic.html">
+                <a href="./registar.php">
                   <span>Crie uma conta</span>
                 </a>
               </p>

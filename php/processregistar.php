@@ -3,11 +3,14 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
       $email = $_POST["email"];
       $password = $_POST["password"];
+      $password_encriptada = password_hash($password, PASSWORD_DEFAULT);
   }
-    $sql = "SELECT * FROM utilizadores WHERE email = :email";
+    
+    $sql = "INSERT into utilizadores VALUES(DEFAULT, :email, :password)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':password', $password_encriptada);
     $stmt->execute();
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -25,8 +28,11 @@
         }
         echo "Email from database: $dbEmail<br>";
         echo "Password from database: $dbPassword";
-        header("Location: ../html/index.html");
+        echo "<script>window.alert('Registado com sucesso');</script>";
+        header("Location: ../views/login.php");
     } else {
-        echo "No matching record found for email: $email";
+        echo "<script>window.alert('Erro na criação');</script>";
+        header("Location: ../views/registar.php");
+
     }
 ?>
