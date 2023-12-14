@@ -6,17 +6,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = $_POST["password"];
 }
 
+ 
+require_once "conn.php";
+ 
+$sql = "SELECT * FROM utilizadores WHERE email = '$email'";
+
+$stmt = $pdo->prepare($sql);
+
+
+$result = $stmt->execute();
+
+print_r($stmt);
+
     if ($email == $email_db && $password == $password_db){
         
     }
+
+
+
+
 ?>
 
 
 
-$stmt = $pdo->prepare("INSERT INTO compras VALUES (DEFAULT,'$cliente', '$total')");
- 
-  $stmt->execute();
- 
+
  
  
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
