@@ -23,8 +23,6 @@
           }
           
         }
-        echo "Email from database: $dbEmail<br>";
-        echo "Password from database: $dbPassword";
         header("Location: ../views/index.php");
     } else {
         echo "E-mail inserido não encontrado: $email";
