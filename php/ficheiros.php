@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
     <title>Index</title>
 </head>
 <body>
@@ -13,11 +12,11 @@
     <div>
         <h2>Ver Ficheiros</h2>
         <?php
-        $ficheiros = scandir("ficheiros");
+        $ficheiros = scandir("../assets/ficheiros");
         for ($a = 2; $a < count($ficheiros); $a++) {
             ?>
             <p>
-                <a href="ficheiros/<?php echo $ficheiros[$a] ?>">
+                <a href="assets/ficheiros<?php echo $ficheiros[$a] ?>">
                     <?php echo $ficheiros[$a] ?>
                 </a>
             </p>
@@ -35,7 +34,7 @@
         for ($a = 2; $a < count($ficheiros); $a++) {
             ?>
             <p>
-                <a download="<?php echo $ficheiros[$a] ?>" href="ficheiros/<?php echo $ficheiros[$a] ?>">
+                <a download="<?php echo $ficheiros[$a] ?>" href="../assets/ficheiros<?php echo $ficheiros[$a] ?>">
                     <?php echo $ficheiros[$a] ?>
                 </a>
             </p>
