@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "../html/components/head.html";
+require "../php/conn.php";
 ?>
 
 <!-- Layout wrapper -->
@@ -31,7 +32,6 @@ require "../html/components/head.html";
                         <th>Submetido por</th>
                         <th>Ficheiro</th>
                         <th>Permissões</th>
-                  
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -107,7 +107,7 @@ require "../html/components/head.html";
                           <input class="form-control" type="password" name="password" id="html5-password-input" />
                         </div>
                       </div>
-      
+      <input type="hidden" name="idficheiro" value="" >
       
       </div>
       <div class="modal-footer">
