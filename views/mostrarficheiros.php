@@ -36,22 +36,13 @@ require "../php/conn.php";
                       </tr>
                     </thead>
                     <tbody>
-
                       <?php
                       $ficheiros = scandir("../assets/ficheiros");
                       for ($a = 2; $a < count($ficheiros); $a++) {
                         ?>
                         <tr>
                           <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                              <li
-                                data-bs-toggle="tooltip"
-                                data-popup="tooltip-custom"
-                                data-bs-placement="top"
-                                class="avatar avatar-xs pull-up"
-                                title="Lilian Fuller"
-                              >
-                                <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            
                               </li>
                               <!-- Add more li elements for each user -->
                             </ul>
@@ -95,34 +86,33 @@ require "../php/conn.php";
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="../php/downloadficheiro.php" method="post">
 
-        <div class="mb-3 row">
-                        <label for="html5-password-input" class="col-md-2 col-form-label">Password</label>
-                        <div class="col-md-10">
-                          <input class="form-control" type="password" name="password" id="html5-password-input" />
-                        </div>
-                      </div>
-      <input type="hidden" name="idficheiro" value="" >
-      
+          <div class="mb-3 row">
+            <label for="html5-password-input" class="col-md-3 col-form-label">Password</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" name="password" id="html5-password-input" />
+            </div>
+          </div>
+          <input type="hidden" name="idficheiro" value="" />
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
       </form>
     </div>
-  
   </div>
 </div>
-
-
-
-              
+      <form action="../php/processupload.php" method="post" enctype="multipart/form-data">
+          <label for="file">Choose a file:</label><br>
+          <input type="file" name="file" id="file" accept=".txt, .pdf, .docx"><br><br>
+          <input type="submit" value="Upload File">
+      </form>
             </div>
           </div>
         </div>
