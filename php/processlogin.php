@@ -1,34 +1,4 @@
 <?php
-//     require 'conn.php';
-//     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-//       $email = $_POST["email"];
-//       $password = $_POST["password"];
-//   }
-//     $sql = "SELECT * FROM utilizadores WHERE email = :email";
-
-//     $stmt = $pdo->prepare($sql);
-//     $stmt->bindParam(':email', $email);
-//     $stmt->execute();
-
-//     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//     if ($result) {
-//         $dbEmail = $result['email'];
-//         $dbPassword = $result['password'];
-//             if ($email = $dbEmail && $password == $password){
-//                 session_start();
-//                     if(isset($_SESSION["user"]) && isset($_SESSION["tipo"]) ){
-//                         $_SESSION["user"] = $result["userid"];
-//                         $_SESSION["user"] = $result["tipo"];
-//           }
-          
-//         }
-//         header("Location: ../views/index.php");
-//     } else {
-//         echo "E-mail inserido não encontrado: $email";
-//     }
-
-
 require 'conn.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,26 +6,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     $sql = "SELECT * FROM utilizadores WHERE email = :email";
-
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
         $dbEmail = $result['email'];
         $dbPassword = $result['password'];
 
-        // Password verification using password_verify
-        if (password_verify($password, $dbPassword)) {
+        if (verify_password($password, $dbPassword)) {
             session_start();
-            if (isset($_SESSION["user"]) && isset($_SESSION["tipo"])) {
-                $_SESSION["user"] = $result["userid"];
-                $_SESSION["tipo"] = $result["tipo"];
-            }
+            $_SESSION["user"] = $result["userid"];
             header("Location: ../views/index.php");
-            exit(); // It's a good practice to exit after a header redirect
+            exit(); // Importante: Encerre o script após redirecionamento para evitar execução adicional
         } else {
             echo "Senha incorreta";
         }
@@ -63,5 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "E-mail inserido não encontrado: $email";
     }
 }
-?>
 
+// Função para verificar a senha
+function verify_password($input_password, $hashed_password_from_database) {
+    // Lógica para verificar a senha, por exemplo, usando password_verify
+    return password_verify($input_password, $hashed_password_from_database);
+}
+?>
