@@ -1,13 +1,11 @@
 <?php
+session_start(); // Start the session at the beginning
 
-if (isset($_SESSION["user"])){
-  
-  header("Location: ../views/index.php");
+if (isset($_SESSION["user"])) {
+    header("Location: ../views/index.php");
+    exit(); // Ensure that no further code is executed
 }
-
-
 ?>
-
 <!DOCTYPE html>
 
 <html

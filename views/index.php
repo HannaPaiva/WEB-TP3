@@ -4,6 +4,11 @@ session_start();
 
 require "../html/components/head.html";
 
+if (!isset($_SESSION["user"])){
+
+    header("Location: ../views/login.php");
+  }
+
 
 ?>
 
