@@ -110,7 +110,7 @@ require "../php/conn.php";
 </div>
       <form action="../php/processupload.php" method="post" enctype="multipart/form-data">
           <label for="file">Choose a file:</label><br>
-          <input type="file" name="file" id="file" accept=".txt, .pdf, .docx"><br><br>
+          <input type="file" name="ficheiro"><br><br>
           <input type="submit" value="Upload File">
       </form>
             </div>
