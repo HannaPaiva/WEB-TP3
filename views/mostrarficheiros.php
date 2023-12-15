@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
+<?php
+
+session_start();
+
+require "../html/components/head.html";
+
+?>
+
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+
+    <?php require "../html/components/sidebar.html"; ?>
+    <!-- / Menu -->
+
+    <!-- Layout container -->
+    <div class="layout-page">
+      <!-- Navbar -->
+
+      <?php require "../html/components/navbar.html"; ?>
 
 
+      <!-- / Navbar -->
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Content -->
 <section name="ver" style="text-align: center";>
     <div>
         <h2>Ver Ficheiros</h2>
@@ -34,7 +52,7 @@
         for ($a = 2; $a < count($ficheiros); $a++) {
             ?>
             <p>
-                <a download="<?php echo $ficheiros[$a] ?>" href="../assets/ficheiros<?php echo $ficheiros[$a] ?>">
+                <a download="<?php echo $ficheiros[$a] ?>" href="../../assets/ficheiros<?php echo $ficheiros[$a] ?>">
                     <?php echo $ficheiros[$a] ?>
                 </a>
             </p>
