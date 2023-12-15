@@ -2,7 +2,7 @@
 -- Anfitrião:                    127.0.0.1
 -- Versão do servidor:           10.4.28-MariaDB - mariadb.org binary distribution
 -- SO do servidor:               Win64
--- HeidiSQL Versão:              12.6.0.6765
+-- HeidiSQL Versão:              12.5.0.6677
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +18,22 @@
 -- A despejar estrutura da base de dados para tp3web
 CREATE DATABASE IF NOT EXISTS `tp3web` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `tp3web`;
+
+-- A despejar estrutura para tabela tp3web.acessos
+CREATE TABLE IF NOT EXISTS `acessos` (
+  `userid` int(11) NOT NULL,
+  `fileid` int(11) NOT NULL,
+  `password_ficheiro` varchar(400) DEFAULT NULL,
+  `chave_acesso` varchar(400) DEFAULT NULL,
+  `publico` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`userid`,`fileid`),
+  KEY `fk_utilizadores_has_ficheiros_ficheiros1_idx` (`fileid`),
+  KEY `fk_utilizadores_has_ficheiros_utilizadores_idx` (`userid`),
+  CONSTRAINT `fk_utilizadores_has_ficheiros_ficheiros1` FOREIGN KEY (`fileid`) REFERENCES `ficheiros` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_utilizadores_has_ficheiros_utilizadores` FOREIGN KEY (`userid`) REFERENCES `utilizadores` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- A despejar dados para tabela tp3web.acessos: ~0 rows (aproximadamente)
 
 -- A despejar estrutura para tabela tp3web.ficheiros
 CREATE TABLE IF NOT EXISTS `ficheiros` (
@@ -36,13 +52,18 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL,
   `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tipo` enum('cliente','admin','convidado') DEFAULT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.utilizadores: ~1 rows (aproximadamente)
-INSERT INTO `utilizadores` (`userid`, `email`, `password`) VALUES
-	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7'),
-	(2, 'aa@ua.pt', 'asdwqeasd');
+-- A despejar dados para tabela tp3web.utilizadores: ~4 rows (aproximadamente)
+INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`, `nome`) VALUES
+	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', NULL, NULL),
+	(2, 'aa@ua.pt', 'asdwqeasd', NULL, NULL),
+	(3, 'admin@admin.com', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', NULL, NULL),
+	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
