@@ -63,8 +63,8 @@ require "../html/components/head.html";
                           </td>
                           <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           <i class="menu-icon tf-icons bx bx-cloud-download"></i>
-</button>
-</td>
+                          </button>
+                          </td>
                           
                           <td>
                             <div class="dropdown">

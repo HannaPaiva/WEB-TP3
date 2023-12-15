@@ -17,9 +17,9 @@
         $dbPassword = $result['password'];
             if ($email = $dbEmail && $password == $password){
                 session_start();
-                    if(isset($_SESSION["user"])){
+                    if(isset($_SESSION["user"]) && isset($_SESSION["tipo"]) ){
                         $_SESSION["user"] = $result["userid"];
-                        
+                        $_SESSION["user"] = $result["tipo"];
           }
           
         }
