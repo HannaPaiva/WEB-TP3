@@ -53,16 +53,17 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `email` varchar(60) NOT NULL,
   `password` varchar(255) NOT NULL,
   `tipo` enum('cliente','admin','convidado') DEFAULT NULL,
+  `nome` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- A despejar dados para tabela tp3web.utilizadores: ~4 rows (aproximadamente)
-INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`) VALUES
-	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', NULL),
-	(2, 'aa@ua.pt', 'asdwqeasd', NULL),
-	(3, 'admin@admin.com', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', NULL),
-	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', NULL);
+INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`, `nome`) VALUES
+	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', NULL, NULL),
+	(2, 'aa@ua.pt', 'asdwqeasd', NULL, NULL),
+	(3, 'admin@admin.com', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', NULL, NULL),
+	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
