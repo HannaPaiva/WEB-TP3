@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conteudoFicheiro = file_get_contents($ficheiro["tmp_name"]);
 
         // Insere na base de dados
-        $sql = "INSERT INTO files (nomeficheiro, tipo, dataficheiro, enviado_em) VALUES (:nomeficheiro, :tipo, :dataficheiro, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO ficheiros (nomeficheiro, tipo, dataficheiro, enviado_em) VALUES (:nomeficheiro, :tipo, :dataficheiro, CURRENT_TIMESTAMP)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':nomeficheiro', $ficheiro["name"]);
         $stmt->bindParam(':tipo', $ficheiro["type"]);
