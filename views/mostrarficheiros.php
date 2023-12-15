@@ -34,7 +34,7 @@ require "../html/components/head.html";
         for ($a = 2; $a < count($ficheiros); $a++) {
             ?>
             <p>
-                <a href="assets/ficheiros<?php echo $ficheiros[$a] ?>">
+                <a href="../assets/ficheiros/<?php echo $ficheiros[$a] ?>">
                     <?php echo $ficheiros[$a] ?>
                 </a>
             </p>
@@ -52,7 +52,7 @@ require "../html/components/head.html";
         for ($a = 2; $a < count($ficheiros); $a++) {
             ?>
             <p>
-                <a download="<?php echo $ficheiros[$a] ?>" href="../../assets/ficheiros<?php echo $ficheiros[$a] ?>">
+                <a download="<?php echo $ficheiros[$a] ?>" href="../assets/ficheiros/<?php echo $ficheiros[$a] ?>">
                     <?php echo $ficheiros[$a] ?>
                 </a>
             </p>
@@ -64,7 +64,7 @@ require "../html/components/head.html";
 <hr>
 
     <section name="carregar" style="text-align: center";>
-        <form method="POST" enctype="multipart/form-data" action="upload.php">
+        <form method="POST" enctype="multipart/form-data" action="../php/processupload.php">
             <input type="file" name="ficheiro">
             <input type="submit" value="Carregar">
         </form>
