@@ -21,21 +21,19 @@ USE `tp3web`;
 
 -- A despejar estrutura para tabela tp3web.acessos
 CREATE TABLE IF NOT EXISTS `acessos` (
+  `idacesso` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `fileid` int(11) NOT NULL,
   `password_ficheiro` varchar(400) DEFAULT NULL,
   `publico` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`userid`,`fileid`),
+  PRIMARY KEY (`idacesso`),
   KEY `fk_utilizadores_has_ficheiros_ficheiros1_idx` (`fileid`),
   KEY `fk_utilizadores_has_ficheiros_utilizadores_idx` (`userid`),
-  CONSTRAINT `fk_utilizadores_has_ficheiros_ficheiros1` FOREIGN KEY (`fileid`) REFERENCES `ficheiros` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_utilizadores_has_ficheiros_utilizadores` FOREIGN KEY (`userid`) REFERENCES `utilizadores` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `fileid` FOREIGN KEY (`fileid`) REFERENCES `ficheiros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `utilizadores` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.acessos: ~1 rows (aproximadamente)
-INSERT INTO `acessos` (`userid`, `fileid`, `password_ficheiro`, `publico`) VALUES
-	(3, 7, 'asdhuasyuidhasdasd', 1),
-	(4, 1, '123', 1);
+-- Exportação de dados não seleccionada.
 
 -- A despejar estrutura para tabela tp3web.ficheiros
 CREATE TABLE IF NOT EXISTS `ficheiros` (
@@ -45,8 +43,9 @@ CREATE TABLE IF NOT EXISTS `ficheiros` (
   `dataficheiro` longblob NOT NULL,
   `enviado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Exportação de dados não seleccionada.
 
 -- A despejar estrutura para tabela tp3web.utilizadores
 CREATE TABLE IF NOT EXISTS `utilizadores` (
@@ -57,13 +56,9 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `nome` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.utilizadores: ~3 rows (aproximadamente)
-INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`, `nome`) VALUES
-	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', 'admin', 'aida'),
-	(3, 'admin@admin.pt', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', 'admin', 'admin'),
-	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', 'admin', 'hanna');
+-- Exportação de dados não seleccionada.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
