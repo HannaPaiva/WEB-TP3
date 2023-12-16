@@ -42,17 +42,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $fileid = $pdo->lastInsertId();
 
-            $password_ficheiro = "asdhuasyuidhasdasd";
-            $publico = 1;
+            // $password_ficheiro = "asdhuasyuidhasdasd";
+            // $publico = 1;
+
+            $publico = isset($_POST['publico']) ? $_POST['publico'] : 0;
+            $password_ficheiro = isset($_POST["passwordFicheiro"]) ? $_POST["passwordFicheiro"] : "";
+            print("PASSWORD INSERIDA: " . $password_ficheiro);
+           
+            $password_encriptada = password_hash($password_ficheiro, PASSWORD_DEFAULT);
+
+            print("PASSWORD ENCRIPTADA: " .  $password_encriptada);
 
             $stmt2 = $pdo->prepare("INSERT INTO acessos (userid, fileid, password_ficheiro, publico) VALUES (?, ?, ?, ?)");
             $stmt2->bindParam(1, $user);
             $stmt2->bindParam(2, $fileid);
-            $stmt2->bindParam(3, $password_ficheiro);
+            $stmt2->bindParam(3, $password_encriptada );
             $stmt2->bindParam(4, $publico);
 
             if ($stmt2->execute()) {
                 echo "sucesso";
+                
             } else {
                 echo "Erro";
             }

@@ -32,7 +32,10 @@ require "../php/conn.php";
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel">Detalhes do Ficheiro</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                       
+                        <button class="btn btn-primary" onclick="validatePassword()">Verificar Senha</button>
+                      
 
                       </div>
                       <div class="modal-body" id="myModalContent">
@@ -93,20 +96,28 @@ require "../php/conn.php";
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seu Modal</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Adicionar ficheiros ao servidor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
 
-                        <form  method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data">
                           Selecione um arquivo:
-                          
+
                           <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple>
+
+
+                      
+                          Senha do arquivo (se privado):
+                          <input class="form-control" type="password" name="passwordFicheiro" id = "passwordFicheiro"><br>
+
+
+
                           <button onclick="postFiles()"> Enviar ficheiros </button>
                         </form>
 
-                     
-                    
+
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
