@@ -65,7 +65,6 @@ require "../php/conn.php";
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
-                    background-color: #f0f0f0;
                   }
 
                   .add-button {
@@ -135,7 +134,6 @@ require "../php/conn.php";
       </div>
     </div>
   </div>
-</div>
 </div>
 <!-- Additional sections (ver, descarregar, carregar) go here -->
 </body>
