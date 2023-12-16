@@ -3,9 +3,10 @@ require_once "conn.php";
 
 session_start();
 
-if(isset($_SESSION["user"])){
+if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
     if (isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
@@ -20,13 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $tipo = mime_content_type($_FILES["fileToUpload"]["tmp_name"]);
 
         // Preparar a consulta SQL para inserir os dados na base de dados
-        $stmt = $pdo->prepare("INSERT INTO ficheiros (nomeficheiro, dataficheiro, enviado_em, tipo) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO ficheiros (nomeficheiro, tipo, dataficheiro, enviado_em) VALUES (?, ?, ?, ?)");
         $stmt->bindParam(1, $nomeficheiro);
-        $stmt->bindParam(2, $dataficheiro, PDO::PARAM_LOB);
-        $stmt->bindParam(3, $enviado_em);
-        $stmt->bindParam(4, $tipo);
+        $stmt->bindParam(2, $tipo);
+        $stmt->bindParam(3, $dataficheiro, PDO::PARAM_LOB);
+        $stmt->bindParam(4, $enviado_em);
 
-        
         // Executar a consulta SQL
         if ($stmt->execute()) {
             echo "O arquivo $nomeficheiro foi enviado com sucesso e registrado na base de dados.";
@@ -36,21 +36,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
         $fileid = $pdo->lastInsertId();
 
-        $password_ficheiro ="asdhuasyuidhasdasd";
-        $publico = 1;
+        // Verificar se o arquivo é privado
+        $isPrivate = isset($_POST['isPrivate']) ? $_POST['isPrivate'] : 0;
+        $password_ficheiro = ($isPrivate == 1) ? $_POST["passwordFicheiro"] : null;
 
         $stmt2 = $pdo->prepare("INSERT INTO acessos (userid, fileid, password_ficheiro, publico) VALUES (?, ?, ?, ?)");
         $stmt2->bindParam(1, $user);
         $stmt2->bindParam(2, $fileid, PDO::PARAM_LOB);
         $stmt2->bindParam(3, $password_ficheiro);
-        $stmt2->bindParam(4, $publico);
+        $stmt2->bindParam(4, $isPrivate);
 
         if ($stmt2->execute()) {
-            echo "sucesso";
+            echo "Sucesso";
         } else {
             echo "Erro";
         }
-        
     } else {
         echo "Erro no envio do arquivo.";
     }

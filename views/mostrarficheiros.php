@@ -97,17 +97,17 @@ require "../php/conn.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-
                         <form action="../php/postFiles.php" method="post" enctype="multipart/form-data">
-                          Selecione um arquivo:
-                          
-                          <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple>
-                          <input type="submit" value="Upload" name="submit">
+                            Selecione um arquivo:
+                            <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple><br>
+                            <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="isPrivate">
+                            <label class="form-check-label" for="defaultCheck1"> Privado </label><br>
+                            Senha do arquivo (se privado):
+                            <input class="form-control" type="password" name="passwordFicheiro"><br>
+                            <input type="submit" value="Upload" name="submit">
                         </form>
+                    </div>
 
-                     
-                    
-                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <!-- Outros botões do rodapé, se necessário -->
