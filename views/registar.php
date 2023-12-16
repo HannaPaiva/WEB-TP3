@@ -136,6 +136,7 @@ if (isset($_SESSION["user"])){
               <p class="mb-4">Make your app management easy and fun!</p> -->
 
               <form id="formAuthentication" class="mb-3" action="../php/processregistar.php" method="POST">
+                  <input type="hidden" class="form-control" name="tipo" value="cliente"/>
                 <div class="mb-3">
                   <label for="nome" class="form-label">Nome</label>
                   <input type="text" class="form-control" name="email" placeholder="Insira o seu nome" required/>
