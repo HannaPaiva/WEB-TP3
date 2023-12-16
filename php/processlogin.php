@@ -1,5 +1,6 @@
 <?php
 require 'conn.php';
+require 'cookie-login.php'; // Certifique-se de incluir este arquivo aqui
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
@@ -18,6 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (verify_password($password, $dbPassword)) {
             session_start();
             $_SESSION["user"] = $result["userid"];
+
+            // Defina o cookie no lado do servidor para armazenar o e-mail
+            setRememberMeCookie($email);
+
             header("Location: ../views/index.php");
             exit(); // Importante: Encerre o script após redirecionamento para evitar execução adicional
         } else {
