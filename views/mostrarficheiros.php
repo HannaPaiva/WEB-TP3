@@ -25,15 +25,15 @@ require "../php/conn.php";
             <div class="card">
               <h5 class="card-header">Ficheiros disponíveis para download</h5>
               <div class="card-body">
-               
 
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel">Detalhes do Ficheiro</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                       
+
                       </div>
                       <div class="modal-body" id="myModalContent">
                         <!-- O conteúdo do modal será adicionado dinamicamente aqui -->
@@ -52,15 +52,69 @@ require "../php/conn.php";
                 <div id="fileList"></div>
                 <script src="../js/teste1.js"></script>
 
-                <form action="../php/postFiles.php" method="post" enctype="multipart/form-data">
-                  Selecione um arquivo:
-                  <input type="file" name="fileToUpload" id="fileToUpload">
-                  <input type="submit" value="Upload" name="submit">
-                </form>
 
 
-      
+                <style>
+                  body {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #f0f0f0;
+                  }
 
+                  .add-button {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 50px;
+                    height: 50px;
+                    background-color: #007bff;
+                    color: #fff;
+                    border: none;
+                    border-radius: 50%;
+                    font-size: 24px;
+                    cursor: pointer;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                  }
+
+                  .add-button:hover {
+                    background-color: #0056b3;
+                  }
+                </style>
+                <a href="#" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Seu Modal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+
+                        <form action="../php/postFiles.php" method="post" enctype="multipart/form-data">
+                          Selecione um arquivo:
+                          <input type="file" name="fileToUpload" id="fileToUpload">
+                          <input type="submit" value="Upload" name="submit">
+                        </form>
+
+
+
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <!-- Outros botões do rodapé, se necessário -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </div>

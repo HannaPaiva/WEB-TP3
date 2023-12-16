@@ -16,22 +16,10 @@
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
-        $dbEmail = $result['email'];
-        $dbPassword = $result['password'];
-            if ($email = $dbEmail && $password == $password){
-                session_start();
-                    if(isset($_SESSION["user"])){
-                        $_SESSION["user"] = $result["userid"];
-                        
-          }
-          
-        }
-        echo "Email from database: $dbEmail<br>";
-        echo "Password from database: $dbPassword";
-        echo "<script>window.alert('Registado com sucesso');</script>";
+        echo '<script>alert("Usuário inserido com sucesso!");</script>';
         header("Location: ../views/login.php");
     } else {
-        echo "<script>window.alert('Erro na criação');</script>";
+        echo '<script>alert("Erro na criação");</script>';
         header("Location: ../views/registar.php");
 
     }
