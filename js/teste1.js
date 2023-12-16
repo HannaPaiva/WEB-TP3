@@ -45,7 +45,7 @@ $(document).ready(function() {
                         // $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-trash me-1"></i> Delete'),
                         // $('<div>').addClass('dropdown-divider'),
                         $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-download me-1"></i> Baixar').click(function () {
-                            openModal(file.nomeficheiro, 'data:application/octet-stream;base64,' + file.dataficheiro);
+                            openModal(file.nomeficheiro, 'data:application/octet-stream;base64,' + file.dataficheiro, file.fileid);
                         })
                     )
                 )
@@ -78,17 +78,41 @@ $(document).ready(function() {
 
 
 
-
-function openModal(nomeficheiro, downloadLink) {
-    // Limpe qualquer conteúdo existente no modal
+function openModal(nomeficheiro, downloadLink, fileid) {
+ 
     $('#myModalContent').empty();
 
-    // Adicione o conteúdo ao modal
     $('#myModalContent').append(
         $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
-        $('<a>').addClass('btn btn-success').attr({
+        $('<input>').attr({
+            'type': 'hidden',
+            'id': 'fileid',
+            'value': fileid
+        }),
+
+       $('<input>', {
+            'class': 'form-control',
+            'type': 'password',
+            'id': 'filepassword',
+            'name': 'filepassword',
+            'placeholder': 'Escreva a password'
+        }),
+        $('<br>'),
+
+        // Criar dinamicamente o botão
+         $('<button>', {
+            'class': 'btn btn-primary',
+            'text': 'Verificar Password',
+            'click': function() {
+                validar_password_ficheiro();
+            }
+        }),
+        $('<br>'),
+        $('<br>'),
+        $('<a>').addClass('btn disabled').attr({
+            'id': 'downloadButton',
             'href': downloadLink,
-            'download': nomeficheiro
+            'download': nomeficheiro,
         }).text('Baixar Ficheiro')
     );
 
@@ -97,6 +121,36 @@ function openModal(nomeficheiro, downloadLink) {
 }
 
 
+
+
+function validar_password_ficheiro(){
+
+   
+    var password = $('#filepassword').val();
+  
+    var fileid = $('#fileid').val();
+
+  
+    $.ajax({
+        type: 'POST',
+        url: '../php/validacao.php',
+        data: { password: password, fileid:fileid },
+        success: function(response) {
+            if (response) {
+             
+                console.log(response)
+                $('#downloadButton').removeClass('disabled');
+            } else {
+              console.log(response)
+                alert('Senha inválida. Tente novamente.' + response);
+            }
+        },
+        error: function(error) {
+            console.log('Erro na validação da senha:', error);
+        }
+    });
+
+}
 
 
 

@@ -35,14 +35,14 @@ require "../php/conn.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                       </div>
+                      
                       <div class="modal-body" id="myModalContent">
-                        <!-- O conteúdo do modal será adicionado dinamicamente aqui -->
+                     
+                    
                       </div>
                     </div>
                   </div>
                 </div>
-
-
 
 
 
@@ -99,7 +99,7 @@ require "../php/conn.php";
                       <div class="modal-body">
 
                         <form method="post" enctype="multipart/form-data">
-                          Selecione um arquivo *: 
+                          Selecione um ou mais arquivos *
 
                           <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple required>
 

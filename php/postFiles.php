@@ -11,7 +11,7 @@ if (isset($_SESSION["user"])) {
 if (isset($_POST["password"])) {
     $password_ficheiro = $_POST["password"];
 
-    $password_encriptada = password_hash($password_ficheiro, PASSWORD_DEFAULT);
+    $password_encriptada = password_hash($password_ficheiro, PASSWORD_BCRYPT);
     $publico = 0;
 }else{
     $password_ficheiro = null;
