@@ -98,11 +98,11 @@ require "../php/conn.php";
                       </div>
                       <div class="modal-body">
 
-                        <form action="../php/postFiles.php" method="post" enctype="multipart/form-data">
+                        <form  method="post" enctype="multipart/form-data">
                           Selecione um arquivo:
                           
                           <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple>
-                          <input type="submit" value="Upload" name="submit">
+                          <button onclick="postFiles()"> Enviar ficheiros </button>
                         </form>
 
                      

@@ -11,6 +11,7 @@ f.enviado_em AS enviado_em
 FROM acessos a
 INNER JOIN utilizadores u ON a.userid = u.userid
 INNER JOIN ficheiros f ON a.fileid = f.id;
+ORDER by f.enviado_em ASC
 ");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

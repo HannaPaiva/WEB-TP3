@@ -3,17 +3,25 @@ require_once "conn.php";
 
 session_start();
 
-if(isset($_SESSION["user"])){
+if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["name"][0])) {
 
         $total_files = count($_FILES['fileToUpload']['name']);
+        $max_allowed_size = 10 * 1024 * 1024; // 10 MB (ajuste conforme necessário)
 
         for ($i = 0; $i < $total_files; $i++) {
+            $file_size = $_FILES["fileToUpload"]["size"][$i];
+
+            if ($file_size > $max_allowed_size) {
+                echo "Erro: Arquivo excede o limite permitido.";
+                continue; // Pula para o próximo arquivo
+            }
+
             $dataficheiro = file_get_contents($_FILES["fileToUpload"]["tmp_name"][$i]);
 
             $nomeficheiro = $_FILES["fileToUpload"]["name"][$i];
@@ -39,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
             $stmt2 = $pdo->prepare("INSERT INTO acessos (userid, fileid, password_ficheiro, publico) VALUES (?, ?, ?, ?)");
             $stmt2->bindParam(1, $user);
-            $stmt2->bindParam(2, $fileid, PDO::PARAM_LOB);
+            $stmt2->bindParam(2, $fileid);
             $stmt2->bindParam(3, $password_ficheiro);
             $stmt2->bindParam(4, $publico);
 
@@ -51,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         }
 
     } else {
-        echo "Erro no envio do arquivo.";
+        echo "Erro: Nenhum arquivo enviado ou todos os arquivos excedem o tamanho permitido.";
     }
 }
 ?>

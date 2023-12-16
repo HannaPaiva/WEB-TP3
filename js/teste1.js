@@ -23,6 +23,7 @@ $(document).ready(function() {
             $('<tr>').append(
                 $('<th>').text('Submetido por'),
                 $('<th>').text('Nome do Ficheiro'),
+                $('<th>').text('Data e hora de submissão'),
                 $('<th>').text('Ações')
             )
         );
@@ -32,7 +33,7 @@ $(document).ready(function() {
         // Corpo da tabela
         var tbody = $('<tbody>');
     
-        // Iterar sobre os arquivos e criar linhas da tabela
+ 
         $.each(files, function (index, file) {
             var actionsColumn = $('<td>').append(
                 $('<div>').addClass('dropdown').append(
@@ -52,8 +53,9 @@ $(document).ready(function() {
             );
     
             var row = $('<tr>').append(
-                $('<td>').text(file.username), // Substitua 'username' pelo nome correto da propriedade
+                $('<td>').text(file.username), 
                 $('<td>').text(file.nomeficheiro),
+                $('<td>').text(file.enviado_em),
                 actionsColumn
             );
             tbody.append(row);
@@ -65,7 +67,8 @@ $(document).ready(function() {
         $('#fileList').append(table);
     }
     
-    
+
+
 });
 
 
@@ -96,4 +99,47 @@ function openModal(nomeficheiro, downloadLink) {
 
 
 
-displayFiles(files);
+
+
+function validateFileSize(files) {
+    var maxFileSize = 10 * 1024 * 1024; // 10 MB (ajuste conforme necessário)
+
+    for (var i = 0; i < files.length; i++) {
+        if (files[i].size > maxFileSize) {
+            alert('Erro: O tamanho do arquivo ' + (i + 1) + ' excede o limite permitido.');
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function postFiles() {
+    var input = document.getElementById('fileToUpload');
+    var files = input.files;
+
+    if (validateFileSize(files)) {
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append('fileToUpload[]', files[i]);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '../php/postFiles.php',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // mensagem de sucesso
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log('Erro na chamada AJAX:');
+                console.log('Status:', status);
+                console.log('Erro:', error);
+                console.log('Resposta do servidor:', xhr.responseText);
+            }
+        });
+    }
+}
