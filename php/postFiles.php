@@ -7,18 +7,19 @@ if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
-    if (isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
+    if (isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["name"][0])) {
 
-        $dataficheiro = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
+        $total_files = count($_FILES['fileToUpload']['name']);
 
-        // Informações sobre o arquivo
-        $nomeficheiro = $_FILES["fileToUpload"]["name"];
-        $enviado_em = date("Y-m-d H:i:s");
+        for ($i = 0; $i < $total_files; $i++) {
+            $dataficheiro = file_get_contents($_FILES["fileToUpload"]["tmp_name"][$i]);
 
-        // Obter o tipo MIME do arquivo
-        $tipo = mime_content_type($_FILES["fileToUpload"]["tmp_name"]);
+            $nomeficheiro = $_FILES["fileToUpload"]["name"][$i];
+            $enviado_em = date("Y-m-d H:i:s");
+            $tipo = mime_content_type($_FILES["fileToUpload"]["tmp_name"][$i]);
 
         // Preparar a consulta SQL para inserir os dados na base de dados
         $stmt = $pdo->prepare("INSERT INTO ficheiros (nomeficheiro, tipo, dataficheiro, enviado_em) VALUES (?, ?, ?, ?)");
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             echo "Erro ao registrar na base de dados.";
         }
 
-        $fileid = $pdo->lastInsertId();
+            $fileid = $pdo->lastInsertId();
 
         // Verificar se o arquivo é privado
         $isPrivate = isset($_POST['isPrivate']) ? $_POST['isPrivate'] : 0;
@@ -55,3 +56,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         echo "Erro no envio do arquivo.";
     }
 }
+?>
