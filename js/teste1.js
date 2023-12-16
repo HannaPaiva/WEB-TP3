@@ -41,9 +41,9 @@ $(document).ready(function() {
                         'data-bs-toggle': 'dropdown'
                     }).html('<i class="bx bx-dots-vertical-rounded"></i>'),
                     $('<div>').addClass('dropdown-menu').append(
-                        $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-edit-alt me-1"></i> Edit'),
-                        $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-trash me-1"></i> Delete'),
-                        $('<div>').addClass('dropdown-divider'),
+                        // $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-edit-alt me-1"></i> Edit'),
+                        // $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-trash me-1"></i> Delete'),
+                        // $('<div>').addClass('dropdown-divider'),
                         $('<a>').addClass('dropdown-item').attr('href', 'javascript:void(0);').html('<i class="bx bx-download me-1"></i> Baixar').click(function () {
                             openModal(file.nomeficheiro, 'data:application/octet-stream;base64,' + file.dataficheiro);
                         })
@@ -115,13 +115,16 @@ function validateFileSize(files) {
 
 function postFiles() {
     var input = document.getElementById('fileToUpload');
+    var password = document.getElementById('password');
     var files = input.files;
 
     if (validateFileSize(files)) {
         var formData = new FormData();
         for (var i = 0; i < files.length; i++) {
             formData.append('fileToUpload[]', files[i]);
+           
         }
+        formData.append('password', password);
 
         $.ajax({
             type: 'POST',

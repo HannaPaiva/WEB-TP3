@@ -93,25 +93,39 @@ require "../php/conn.php";
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seu Modal</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Submeter ficheiro</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
 
-                        <form  method="post" enctype="multipart/form-data">
-                          Selecione um arquivo:
-                          
-                          <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple>
-                          <button onclick="postFiles()"> Enviar ficheiros </button>
+                        <form method="post" enctype="multipart/form-data">
+                          Selecione um arquivo *: 
+
+                          <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple required>
+
+                          <br><br>
+                          <div class="row">
+
+                            
+                            <label> Password</label>
+                            <div class="col-md-12">
+
+                              <input class="form-control" type="password" id="password" name = "password" placeholder="Escreva a password que deseja agregar aos ficheiros" />
+
+                            </div>
+                          </div>
+
+                          <br><br>
+                          <div class="row">
+                            <button class="btn btn-primary" onclick="postFiles()"> Enviar ficheiros </button>
+
+                          </div>
                         </form>
 
-                     
-                    
+
+
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <!-- Outros botões do rodapé, se necessário -->
-                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -120,13 +134,13 @@ require "../php/conn.php";
             </div>
           </div>
         </div>
-        <!-- Other sections (ver, descarregar, carregar) go here -->
+
       </div>
     </div>
   </div>
 </div>
 </div>
-<!-- Additional sections (ver, descarregar, carregar) go here -->
+
 </body>
 
 </html>

@@ -7,6 +7,20 @@ if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];
 }
 
+
+if (isset($_POST["password"])) {
+    $password_ficheiro = $_POST["password"];
+
+    $password_encriptada = password_hash($password_ficheiro, PASSWORD_DEFAULT);
+    $publico = 0;
+}else{
+    $password_ficheiro = null;
+    $password_encriptada = null;
+    $publico = 1;
+}
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["name"][0])) {
@@ -25,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dataficheiro = file_get_contents($_FILES["fileToUpload"]["tmp_name"][$i]);
 
             $nomeficheiro = $_FILES["fileToUpload"]["name"][$i];
+            date_default_timezone_set('Europe/Lisbon');
             $enviado_em = date("Y-m-d H:i:s");
             $tipo = mime_content_type($_FILES["fileToUpload"]["tmp_name"][$i]);
 
@@ -42,13 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $fileid = $pdo->lastInsertId();
 
-            $password_ficheiro = "asdhuasyuidhasdasd";
-            $publico = 1;
-
+           
             $stmt2 = $pdo->prepare("INSERT INTO acessos (userid, fileid, password_ficheiro, publico) VALUES (?, ?, ?, ?)");
             $stmt2->bindParam(1, $user);
             $stmt2->bindParam(2, $fileid);
-            $stmt2->bindParam(3, $password_ficheiro);
+            $stmt2->bindParam(3, $password_encriptada);
             $stmt2->bindParam(4, $publico);
 
             if ($stmt2->execute()) {
