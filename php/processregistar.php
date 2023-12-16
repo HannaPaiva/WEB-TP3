@@ -20,9 +20,11 @@ $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($result) {
-    echo '<script>alert("Utilizador inserido com sucesso!");</script>';
-    header("Location: ../views/login.php");
+    echo 'sucesso';
+  
+    exit();
 } else {
-    echo '<script>alert("Erro na criação!");</script>';
+    echo 'erro';
     header("Location: ../views/registar.php");
+    exit();
 }

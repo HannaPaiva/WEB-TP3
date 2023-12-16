@@ -100,13 +100,13 @@ require "../php/conn.php";
 
                         <form action="../php/postFiles.php" method="post" enctype="multipart/form-data">
                           Selecione um arquivo:
-                          <input type="file" name="fileToUpload" id="fileToUpload">
+                          
+                          <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple>
                           <input type="submit" value="Upload" name="submit">
                         </form>
 
-
-
-
+                     
+                    
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
