@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `acessos` (
   KEY `fk_utilizadores_has_ficheiros_utilizadores_idx` (`userid`),
   CONSTRAINT `fileid` FOREIGN KEY (`fileid`) REFERENCES `ficheiros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `utilizadores` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Exportação de dados não seleccionada.
+-- A despejar dados para tabela tp3web.acessos: ~0 rows (aproximadamente)
 
 -- A despejar estrutura para tabela tp3web.ficheiros
 CREATE TABLE IF NOT EXISTS `ficheiros` (
@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `ficheiros` (
   `dataficheiro` longblob NOT NULL,
   `enviado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Exportação de dados não seleccionada.
+-- A despejar dados para tabela tp3web.ficheiros: ~0 rows (aproximadamente)
 
 -- A despejar estrutura para tabela tp3web.utilizadores
 CREATE TABLE IF NOT EXISTS `utilizadores` (
@@ -58,7 +58,12 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Exportação de dados não seleccionada.
+-- A despejar dados para tabela tp3web.utilizadores: ~4 rows (aproximadamente)
+INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`, `nome`) VALUES
+	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', 'admin', 'aida'),
+	(3, 'admin@admin.pt', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', 'admin', 'admin'),
+	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', 'admin', 'hanna'),
+	(5, 'nome@admin.pt', '$2y$10$lgGdSSRKi1/l5/iy9w/DuOewt2mkfgwNdZyOkZSNPc6pBH1p9hSkS', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
