@@ -58,6 +58,7 @@ if (isset($_SESSION["user"])) {
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="../js/cookies.js"></script>
   </head>
 
   <body>
@@ -135,14 +136,7 @@ if (isset($_SESSION["user"])) {
               <form id="formAuthentication" class="mb-3" action="../php/processlogin.php" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    placeholder="Insira o seu email"
-                    autofocus
-                    required
-                  />
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Insira o seu email" autofocus required />
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
@@ -161,11 +155,13 @@ if (isset($_SESSION["user"])) {
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
+
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me" />
                     <label class="form-check-label" for="remember-me"> Lembre-se de mim </label> <!-- cookie aquivc-->
                   </div>
+
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Entrar</button>
