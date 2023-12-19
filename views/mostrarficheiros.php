@@ -55,15 +55,7 @@ require "../php/conn.php";
 
 
                 <style>
-                  body {
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    background-color: #f0f0f0;
-                  }
+             
 
                   .add-button {
                     position: fixed;
@@ -88,6 +80,8 @@ require "../php/conn.php";
                     background-color: #0056b3;
                   }
                 </style>
+
+
                 <a href="#" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -98,7 +92,8 @@ require "../php/conn.php";
                       </div>
                       <div class="modal-body">
 
-                        <form method="post" enctype="multipart/form-data">
+                    
+                      <form method="post" id="postFiles" name= "postFiles" enctype="multipart/form-data">
                           Selecione um ou mais arquivos *
 
                           <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple required>
@@ -117,8 +112,8 @@ require "../php/conn.php";
 
                           <br><br>
                           <div class="row">
-                            <button class="btn btn-primary" onclick="postFiles()"> Enviar ficheiros </button>
-
+                            <!-- <button class="btn btn-primary" type= "submit " onclick="postFiles()"> Enviar ficheiros </button> -->
+                            <button class="btn btn-primary" type= "submit "> Enviar ficheiros </button>
                           </div>
                         </form>
 

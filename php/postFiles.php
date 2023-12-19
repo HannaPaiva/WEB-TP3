@@ -5,22 +5,16 @@ session_start();
 
 if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];
-}
 
 
-if (isset($_POST["password"])) {
+ 
     $password_ficheiro = $_POST["password"];
 
-    $password_encriptada = password_hash($password_ficheiro, PASSWORD_BCRYPT);
-    $publico = 0;
-}else{
-    $password_ficheiro = null;
-    $password_encriptada = null;
-    $publico = 1;
-}
+//     echo($password_ficheiro);
+    $password_encriptada = password_hash($password_ficheiro, PASSWORD_DEFAULT);
+//     echo($password_encriptada);
 
-
-
+// die("************************");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["name"][0])) {
@@ -50,29 +44,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(4, $tipo);
 
             if ($stmt->execute()) {
-                echo "O arquivo $nomeficheiro foi enviado com sucesso e registrado na base de dados.";
-            } else {
-                echo "Erro ao registrar na base de dados.";
-            }
-
+            
             $fileid = $pdo->lastInsertId();
-
-           
             $stmt2 = $pdo->prepare("INSERT INTO acessos (userid, fileid, password_ficheiro, publico) VALUES (?, ?, ?, ?)");
             $stmt2->bindParam(1, $user);
             $stmt2->bindParam(2, $fileid);
             $stmt2->bindParam(3, $password_encriptada);
             $stmt2->bindParam(4, $publico);
-
             if ($stmt2->execute()) {
-                echo "sucesso";
+                $response['status'] = "ok";
+                $response['message'] = "Sucesso";
             } else {
-                echo "Erro";
+                $response['status'] = "error";
+                $response['message'] = "Erro";
             }
+            
+
+            } else {
+                $response['message'] = "Erro ao registrar na base de dados.";
+                $response['status'] = "error";
+            }
+
+            
+
+           
+
+            
+            echo json_encode($response);
         }
 
     } else {
         echo "Erro: Nenhum arquivo enviado ou todos os arquivos excedem o tamanho permitido.";
     }
 }
-?>
+}else{
+     $response['message'] = "Erro ao registrar na base de dados.";
+     $response['status'] = "error";
+}

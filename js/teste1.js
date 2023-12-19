@@ -1,5 +1,4 @@
 
-
 $(document).ready(function() {
    
     $.ajax({
@@ -67,15 +66,67 @@ $(document).ready(function() {
     }
     
 
+  
+    
+    // Evento de envio do formulário
+    $("#postFiles").submit(function (event) {
+        // event.preventDefault();
+        var input = document.getElementById('fileToUpload');
+        var files = input.files;
+   
+        if (validateFileSize(files)) {
+            var formData = new FormData();
+            formData.append('password', $('#password').val()); // Certifique-se de ter um elemento de input com o id 'password'
+    
+            for (var i = 0; i < files.length; i++) {
+                formData.append('fileToUpload[]', files[i]);
+            }
+    
+            // Faz a solicitação AJAX
+            $.ajax({
+                type: 'POST',
+                url: '../php/postFiles.php',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response); // Exibe a resposta no console
+                
+                    // Tente analisar o JSON apenas se a resposta parecer ser um JSON válido
+                    try {
+                        var jsonResponse = JSON.parse(response);
+                
+                        if (jsonResponse.status === "ok") {
+                            // A solicitação foi bem-sucedida
+                        
+                            console.log("Sucesso: " + jsonResponse.message);
+                        } else {
+                            // A solicitação falhou
+                            console.log("Erro: " + jsonResponse.message);
+                        }
+                    } catch (error) {
+                        // Se não puder ser analisado como JSON, pode ser uma resposta de erro do servidor
+                        console.log("Erro na resposta do servidor:", response);
+                    }
+                },
+                error: function () {
+                    // Trate erros aqui
+                    console.log("Erro na solicitação AJAX");
+                }
+            });
+        }
+    });
+    
 
+
+
+
+
+
+
+
+    
 });
-
-
-
-
-
-
-
 
 
 function openModal(nomeficheiro, downloadLink, fileid) {
@@ -126,7 +177,7 @@ function openModal(nomeficheiro, downloadLink, fileid) {
 function validar_password_ficheiro(){
 
    
-    var password = $('#filepassword').val();
+    var filepassword = $('#filepassword').val();
   
     var fileid = $('#fileid').val();
 
@@ -134,16 +185,30 @@ function validar_password_ficheiro(){
     $.ajax({
         type: 'POST',
         url: '../php/validacao.php',
-        data: { password: password, fileid:fileid },
+        data: { filepassword: filepassword, fileid:fileid },
+        
         success: function(response) {
-            if (response) {
-             
-                console.log(response)
-                $('#downloadButton').removeClass('disabled');
-            } else {
-              console.log(response)
-                alert('Senha inválida. Tente novamente.' + response);
+      
+            try {
+                var jsonResponse = JSON.parse(response);
+        
+                if (jsonResponse.status === "ok") {
+                    // A solicitação foi bem-sucedida
+                
+                    console.log("Sucesso: " + jsonResponse.message);
+                    $('#downloadButton').removeClass('disabled');
+                } else {
+                    // A solicitação falhou
+                    console.log("Erro: " + jsonResponse.message);
+                    alert('Senha inválida. Tente novamente.' + response);
+                }
+            } catch (error) {
+                // Se não puder ser analisado como JSON, pode ser uma resposta de erro do servidor
+                console.log("Erro na resposta do servidor:", response);
             }
+
+
+
         },
         error: function(error) {
             console.log('Erro na validação da senha:', error);
@@ -165,20 +230,19 @@ function validateFileSize(files) {
     }
 
     return true;
-}
 
+}
 function postFiles() {
     var input = document.getElementById('fileToUpload');
-    var password = document.getElementById('password');
+   
     var files = input.files;
-
+ var password = document.getElementById('password').value;
     if (validateFileSize(files)) {
         var formData = new FormData();
+        formData.append('password', password);
         for (var i = 0; i < files.length; i++) {
             formData.append('fileToUpload[]', files[i]);
-           
         }
-        formData.append('password', password);
 
         $.ajax({
             type: 'POST',
@@ -199,3 +263,5 @@ function postFiles() {
         });
     }
 }
+
+

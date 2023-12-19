@@ -2,13 +2,13 @@
 
 require_once "conn.php";
 
-
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
  
     $fileid = $_POST["fileid"];
-    $password = $_POST["password"];
+    $password = $_POST["filepassword"];
 
     $sql = "SELECT a.password_ficheiro AS dbpassword
             FROM acessos a
@@ -20,14 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    die($result["dbpassword"]);
+
     if ($result) {
         $dbPassword = $result['dbpassword'];
 
         if (password_verify($password, $dbPassword)) {
-            echo ("ok");
+            $response['status'] = "ok";
+            $response['message'] = "Sucesso";
+            echo json_encode($response);
         } else {
-            echo ("no");
+            $response['status'] = "erro";
+            $response['message'] = "Error";
+            echo json_encode($response);
         }
     }
 }
