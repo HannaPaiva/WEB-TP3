@@ -139,7 +139,12 @@ require '../php/indexLogic.php';
         <!-- / Content -->
 
         <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
+  
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <footer class="content-footer footer bg-footer-theme">
           <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
             <div class="mb-2 mb-md-0">
               @ 2023,Trabalho realizado por Hanna Paiva e Paulo César
@@ -149,10 +154,6 @@ require '../php/indexLogic.php';
 
           </div>
         </footer>
-        <!-- / Footer -->
-
-        <div class="content-backdrop fade"></div>
-      </div>
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

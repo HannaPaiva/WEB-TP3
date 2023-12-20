@@ -126,16 +126,23 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                           </h2>
                           <div id="collapse<?= $index ?>" class="accordion-collapse collapse" aria-labelledby="heading<?= $index ?>" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                              <!-- Modifique esta parte para exibir os dados conforme desejado -->
                               <p>Nome dos ficheiros: <?= implode(', ', explode(',', $item['lista_de_ficheiros'])) ?></p>
                               <p>Enviado em: <?= $item['enviado_em_ultima_atualizacao'] ?></p>
+
+                              <button class="btn btn-primary" onclick="window.location.href='../php/zipar.php?idpasta=<?= $item['idpasta'] ?>'">Baixar todos os arquivos</button>
+                              <br>
                             </div>
                           </div>
-                        </div>
-                      <?php endforeach; ?>
-                    </div>
 
-                    <div id="accordionExample" class="accordion">
+                        
+                </div>
+                        </div>
+                        <br>
+         
+                      <?php endforeach; ?>
+                      
+                    </div>
+           <div id="accordionExample" class="accordion">
 
 
                       <!DOCTYPE html>

@@ -24,6 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result) {
         $dbPassword = $result['dbpassword'];
 
+        $cookiesArray = isset($_COOKIE['filecookies']) ? json_decode($_COOKIE['filecookies'], true) : array();
+
+        // Adiciona os novos dados ao array de cookies
+        $cookiesArray[] = array(
+            'mensagem' => "Descarregou ficheiros",
+            'hora' => date('Y-m-d H:i:s')
+        );
+
+        setcookie('filecookies', json_encode($cookiesArray), time() + 3600, '/'); // expira em 1 hora
+
+
         if (password_verify($password, $dbPassword)) {
             $response['status'] = "ok";
             $response['message'] = "Sucesso";

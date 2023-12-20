@@ -115,7 +115,7 @@ $(document).ready(function() {
                             console.log("Sucesso: " + jsonResponse.message);
                         } else {
                             // A solicitação falhou
-                            console.log("Erro: " + jsonResponse.message);
+                            console.log("Erro: Password incorreta" );
                         }
                     } catch (error) {
                         // Se não puder ser analisado como JSON, pode ser uma resposta de erro do servidor
