@@ -1,6 +1,19 @@
 
 $(document).ready(function() {
    
+    
+    $('#blocopasta').hide();
+    $('#fileToUpload').change(function () {
+        var numberOfFiles = $(this)[0].files.length;
+
+        if (numberOfFiles > 1) {
+            $('#blocopasta').show();
+        } else {
+            $('#blocopasta').hide();
+        }
+    });
+
+
     $.ajax({
         url: '../php/getFiles.php', 
         type: 'GET',
@@ -77,7 +90,7 @@ $(document).ready(function() {
         if (validateFileSize(files)) {
             var formData = new FormData();
             formData.append('password', $('#password').val()); // Certifique-se de ter um elemento de input com o id 'password'
-    
+            formData.append('nomepasta', $('#nomepasta').val()); 
             for (var i = 0; i < files.length; i++) {
                 formData.append('fileToUpload[]', files[i]);
             }

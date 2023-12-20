@@ -139,7 +139,7 @@ if (isset($_SESSION["user"])){
                   <input type="hidden" class="form-control" name="tipo" value="cliente"/>
                 <div class="mb-3">
                   <label for="nome" class="form-label">Nome</label>
-                  <input type="text" class="form-control" name="email" placeholder="Insira o seu nome" required/>
+                  <input type="text" class="form-control" name="nome" placeholder="Insira o seu nome" required/>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>

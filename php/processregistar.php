@@ -21,7 +21,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($result) {
     echo 'sucesso';
-  
+    header("Location: ../views/sucesso.php");
     exit();
 } else {
     echo 'erro';

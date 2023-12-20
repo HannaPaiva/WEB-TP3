@@ -24,16 +24,16 @@ CREATE TABLE IF NOT EXISTS `acessos` (
   `idacesso` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `fileid` int(11) NOT NULL,
-  `password_ficheiro` varchar(400) DEFAULT NULL,
+  `password_ficheiro` varchar(255) DEFAULT NULL,
   `publico` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idacesso`),
   KEY `fk_utilizadores_has_ficheiros_ficheiros1_idx` (`fileid`),
   KEY `fk_utilizadores_has_ficheiros_utilizadores_idx` (`userid`),
   CONSTRAINT `fileid` FOREIGN KEY (`fileid`) REFERENCES `ficheiros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `utilizadores` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.acessos: ~0 rows (aproximadamente)
+-- Exportação de dados não seleccionada.
 
 -- A despejar estrutura para tabela tp3web.ficheiros
 CREATE TABLE IF NOT EXISTS `ficheiros` (
@@ -43,9 +43,22 @@ CREATE TABLE IF NOT EXISTS `ficheiros` (
   `dataficheiro` longblob NOT NULL,
   `enviado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.ficheiros: ~0 rows (aproximadamente)
+-- Exportação de dados não seleccionada.
+
+-- A despejar estrutura para tabela tp3web.pasta
+CREATE TABLE IF NOT EXISTS `pasta` (
+  `idpasta` int(11) NOT NULL AUTO_INCREMENT,
+  `nomepasta` varchar(100) DEFAULT NULL,
+  `idacesso` int(11) DEFAULT NULL,
+  `passwordpasta` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idpasta`),
+  KEY `idacesso` (`idacesso`),
+  CONSTRAINT `idacesso` FOREIGN KEY (`idacesso`) REFERENCES `acessos` (`idacesso`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Exportação de dados não seleccionada.
 
 -- A despejar estrutura para tabela tp3web.utilizadores
 CREATE TABLE IF NOT EXISTS `utilizadores` (
@@ -56,14 +69,9 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `nome` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela tp3web.utilizadores: ~4 rows (aproximadamente)
-INSERT INTO `utilizadores` (`userid`, `email`, `password`, `tipo`, `nome`) VALUES
-	(1, 'aiwda@gmail.com', '*3543A0AD7EA1BADD56F68D29D84796272A9D88F7', 'admin', 'aida'),
-	(3, 'admin@admin.pt', '$2y$10$xl2Il9voZACcfOHWlcQZPOsccCzBr0uzKpw9D706UAblFt5tCRe.m', 'admin', 'admin'),
-	(4, 'hanna@admin.pt', '$2y$10$unx2QzSVkc5dtM9j79eAHeHNWHj64iCYrl3nBs1G8BWyNuba2ZsJq', 'admin', 'hanna'),
-	(5, 'nome@admin.pt', '$2y$10$lgGdSSRKi1/l5/iy9w/DuOewt2mkfgwNdZyOkZSNPc6pBH1p9hSkS', NULL, NULL);
+-- Exportação de dados não seleccionada.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

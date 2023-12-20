@@ -10,6 +10,9 @@ if (!isset($_SESSION["user"])) {
 
   header("Location: ../views/login.php");
 }
+
+
+
 //     header("Location: ../views/login.php");
 //   }
 require '../php/indexLogic.php';
@@ -37,26 +40,7 @@ require '../php/indexLogic.php';
       <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-          <div class="row">
-            <div class="col-lg-12 mb-4 order-0">
-              <div class="card">
-                <div class="d-flex align-items-end row">
-                  <div class="col-sm-7">
-                    <div class="card-body">
-                      <h5 class="card-title text-primary">
-                       Olá, <?php echo buscarUsername(); ?>
-                      </h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-4">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        
           <div class="row">
             <!-- Order Statistics -->
             <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
@@ -114,6 +98,43 @@ require '../php/indexLogic.php';
             </div>
             <!--/ Transactions -->
           </div>
+
+
+          <div class="row">
+            <div class="col-lg-12 mb-4 order-0">
+              <div class="card">
+                <div class="d-flex align-items-end row">
+                  <div class="col-sm-7">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">
+                        Olá, <?php echo buscarUsername(); ?>
+                      </h5>
+
+
+                      <h6>As suas últimas ações:</h6>
+
+                
+                      <table class="table  table-bordered ">
+                        <thead>
+                          <tr>
+                            <th>Dados</th>
+                            <th>Hora</th>
+                          </tr>
+                        </thead>
+                        <tbody id="dadosTableBody">
+                          <!-- Os dados serão exibidos aqui -->
+                        </tbody>
+                  
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <!-- / Content -->
 
@@ -146,3 +167,35 @@ require '../php/indexLogic.php';
 </body>
 
 </html>
+
+<script>
+  function exibirDadosNaTabela(dadosArray) {
+    var tabelaBody = $('#dadosTableBody');
+
+    // Limpa o corpo da tabela antes de adicionar novos dados
+    tabelaBody.empty();
+
+    // Itera sobre os dados e adiciona linhas à tabela
+    dadosArray.forEach(function(dados) {
+      var newRow = $('<tr>');
+
+      newRow.append('<td>' + dados.mensagem + '</td>');
+      newRow.append('<td>' + dados.hora + '</td>');
+      tabelaBody.append(newRow);
+    });
+  }
+
+  // Faz uma requisição AJAX para obter os dados dos cookies
+  $.ajax({
+    type: 'GET',
+    url: '../php/getCookies.php', // O nome do arquivo PHP que contém o código de obtenção dos cookies
+    dataType: 'json',
+    success: function(data) {
+      // Chama a função para exibir os dados na tabela
+      exibirDadosNaTabela(data);
+    },
+    error: function(error) {
+      console.error('Erro ao obter os dados dos cookies:', error);
+    }
+  });
+</script>

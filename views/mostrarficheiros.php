@@ -35,10 +35,10 @@ require "../php/conn.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                       </div>
-                      
+
                       <div class="modal-body" id="myModalContent">
-                     
-                    
+
+
                       </div>
                     </div>
                   </div>
@@ -50,13 +50,11 @@ require "../php/conn.php";
 
                 <div id="tabela-files"></div>
                 <div id="fileList"></div>
-                <script src="../js/teste1.js"></script>
+                <script src="../js/ficheiros.js"></script>
 
 
 
                 <style>
-             
-
                   .add-button {
                     position: fixed;
                     bottom: 20px;
@@ -92,8 +90,8 @@ require "../php/conn.php";
                       </div>
                       <div class="modal-body">
 
-                    
-                      <form method="post" id="postFiles" name= "postFiles" enctype="multipart/form-data">
+
+                        <form method="post" id="postFiles" name="postFiles" enctype="multipart/form-data">
                           Selecione um ou mais arquivos *
 
                           <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple required>
@@ -101,19 +99,27 @@ require "../php/conn.php";
                           <br><br>
                           <div class="row">
 
-                            
                             <label> Password</label>
                             <div class="col-md-12">
+                              <input class="form-control" type="password" id="password" name="password" placeholder="Escreva a password que deseja agregar aos ficheiros" />
+                            </div>
 
-                              <input class="form-control" type="password" id="password" name = "password" placeholder="Escreva a password que deseja agregar aos ficheiros" />
+                            <div class="row">
+                              <div id="blocopasta">
+
+                                <br><br>
+                                <label> Nome da pasta</label>
+                                <input class="form-control" type="text" id="nomepasta" name="nomepasta" placeholder="Escreva o nome da pasta" />
+                              </div>
 
                             </div>
+
                           </div>
 
                           <br><br>
                           <div class="row">
                             <!-- <button class="btn btn-primary" type= "submit " onclick="postFiles()"> Enviar ficheiros </button> -->
-                            <button class="btn btn-primary" type= "submit "> Enviar ficheiros </button>
+                            <button class="btn btn-primary" type="submit "> Enviar ficheiros </button>
                           </div>
                         </form>
 
