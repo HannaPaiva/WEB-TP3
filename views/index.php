@@ -47,7 +47,7 @@ require '../php/indexLogic.php';
               <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between pb-0">
                   <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Ficheiros submetidos por você</h5>
+                    <h5 class="m-0 me-2">Ações realizadas recentemente</h5>
                     <br>
                   </div>
                 </div>

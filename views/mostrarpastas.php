@@ -132,8 +132,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                               <button class="btn btn-primary" onclick="window.location.href='../php/zipar.php?idpasta=<?= $item['idpasta'] ?>'">Baixar todos os arquivos</button>
                               <br>
                             </div>
-                          </div>
-
+                         
                         
                 </div>
                         </div>

@@ -79,9 +79,7 @@ $(document).ready(function() {
     }
     
 
-  
-    
-    // Evento de envio do formulário
+   
     $("#postFiles").submit(function (event) {
         // event.preventDefault();
         var input = document.getElementById('fileToUpload');
@@ -89,7 +87,7 @@ $(document).ready(function() {
    
         if (validateFileSize(files)) {
             var formData = new FormData();
-            formData.append('password', $('#password').val()); // Certifique-se de ter um elemento de input com o id 'password'
+            formData.append('password', $('#password').val()); 
             formData.append('nomepasta', $('#nomepasta').val()); 
             for (var i = 0; i < files.length; i++) {
                 formData.append('fileToUpload[]', files[i]);
@@ -134,55 +132,144 @@ $(document).ready(function() {
 
 
 
-
-
-
-
     
 });
 
-
 function openModal(nomeficheiro, downloadLink, fileid) {
- 
-    $('#myModalContent').empty();
+    verificar_publico(fileid, function (epublico) {
+        console.log("verificar", epublico);
 
-    $('#myModalContent').append(
-        $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
-        $('<input>').attr({
-            'type': 'hidden',
-            'id': 'fileid',
-            'value': fileid
-        }),
+        $('#myModalContent').empty();
+        if (epublico == "privado") {
+            $('#myModalContent').append(
+                $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'id': 'fileid',
+                    'value': fileid
+                }),
 
-       $('<input>', {
-            'class': 'form-control',
-            'type': 'password',
-            'id': 'filepassword',
-            'name': 'filepassword',
-            'placeholder': 'Escreva a password'
-        }),
-        $('<br>'),
+                $('<input>', {
+                    'class': 'form-control',
+                    'type': 'password',
+                    'id': 'filepassword',
+                    'name': 'filepassword',
+                    'placeholder': 'Escreva a password'
+                }),
+                $('<br>'),
 
-        // Criar dinamicamente o botão
-         $('<button>', {
-            'class': 'btn btn-primary',
-            'text': 'Verificar Password',
-            'click': function() {
-                validar_password_ficheiro();
-            }
-        }),
-        $('<br>'),
-        $('<br>'),
-        $('<a>').addClass('btn disabled').attr({
-            'id': 'downloadButton',
-            'href': downloadLink,
-            'download': nomeficheiro,
-        }).text('Baixar Ficheiro')
-    );
+                
+                $('<button>', {
+                    'class': 'btn btn-primary',
+                    'text': 'Verificar Password',
+                    'click': function () {
+                        validar_password_ficheiro();
+                    }
+                }),
+                $('<br>'),
+                $('<br>'),
+                $('<a>').addClass('btn disabled').attr({
+                    'id': 'downloadButton',
+                    'href': downloadLink,
+                    'download': nomeficheiro,
+                }).text('Baixar Ficheiro')
+            );
 
-    // Abra o modal do Bootstrap
-    $('#myModal').modal('show');
+        } else if (epublico == "publico") {
+
+            $('#myModalContent').append(
+                $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'id': 'fileid',
+                    'value': fileid
+                }),
+
+         
+                $('<a>').addClass('btn').attr({
+                    'id': 'downloadButton',
+                    'href': downloadLink,
+                    'download': nomeficheiro,
+                }).text('Baixar Ficheiro')
+            );
+        } else {
+          
+            $('#myModalContent').append(
+                $('<p>').text('Ocorreu um erro ao verificar a visibilidade do arquivo.')
+            );
+        }
+
+        $('#myModal').modal('show');
+    });
 }
+
+// function openModal(nomeficheiro, downloadLink, fileid) {
+ 
+    
+//     console.log("verificar", epublico)
+
+//     $('#myModalContent').empty();
+//     if (epublico == "privado"){
+//         $('#myModalContent').append(
+//             $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
+//             $('<input>').attr({
+//                 'type': 'hidden',
+//                 'id': 'fileid',
+//                 'value': fileid
+//             }),
+    
+//            $('<input>', {
+//                 'class': 'form-control',
+//                 'type': 'password',
+//                 'id': 'filepassword',
+//                 'name': 'filepassword',
+//                 'placeholder': 'Escreva a password'
+//             }),
+//             $('<br>'),
+    
+//             // Criar dinamicamente o botão
+//              $('<button>', {
+//                 'class': 'btn btn-primary',
+//                 'text': 'Verificar Password',
+//                 'click': function() {
+//                     validar_password_ficheiro();
+//                 }
+//             }),
+//             $('<br>'),
+//             $('<br>'),
+//             $('<a>').addClass('btn disabled').attr({
+//                 'id': 'downloadButton',
+//                 'href': downloadLink,
+//                 'download': nomeficheiro,
+//             }).text('Baixar Ficheiro')
+//         );
+    
+//     }
+    
+//     if(epublico == "publico"){
+//         console.log("entra no if")
+//         $('#myModalContent').append(
+//             $('<p>').text('Nome do Ficheiro: ' + nomeficheiro),
+//             $('<input>').attr({
+//                 'type': 'hidden',
+//                 'id': 'fileid',
+//                 'value': fileid
+//             }),
+    
+//             $('<br>'),
+//             $('<br>'),
+//             $('<a>').addClass('btn').attr({
+//                 'id': 'downloadButton',
+//                 'href': downloadLink,
+//                 'download': nomeficheiro,
+//             }).text('Baixar Ficheiro')
+//         );
+//     }
+   
+
+//     // Abra o modal do Bootstrap
+//     $('#myModal').modal('show');
+// }
 
 
 
@@ -245,6 +332,8 @@ function validateFileSize(files) {
     return true;
 
 }
+
+
 function postFiles() {
     var input = document.getElementById('fileToUpload');
    
@@ -278,3 +367,77 @@ function postFiles() {
 }
 
 
+// function verificar_publico(fileid){
+        
+//         var formData = new FormData();
+    
+//         formData.append('fileid', fileid);  
+      
+//         $.ajax({
+//             type: 'POST',
+//             url: '../php/publico_01.php',
+//             data: formData,
+//             contentType: false,
+//             processData: false,
+//             success: function (response) {
+//                 console.log(response); 
+            
+          
+//                 try {
+//                     var jsonResponse = JSON.parse(response);
+            
+//                     if (jsonResponse.status === "publico") {
+//                         console.log(jsonResponse.message)
+//                         valor=  "publico"
+//                     } else {
+//                         console.log(jsonResponse.message)
+//                         valor = "privado"
+//                     }
+//                 } catch (error) {
+                 
+//                     console.log("Erro na resposta do servidor:", response);
+//                 }
+//             },
+//             error: function () {
+//                 // Trate erros aqui
+//                 console.log("Erro na solicitação AJAX");
+//             }
+//         });
+
+//         return valor
+//     }
+function verificar_publico(fileid, callback) {
+    var formData = new FormData();
+    formData.append('fileid', fileid);
+
+    $.ajax({
+        type: 'POST',
+        url: '../php/publico_01.php',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+
+            try {
+                var jsonResponse = JSON.parse(response);
+
+                if (jsonResponse.status === "publico") {
+                    console.log(jsonResponse.message);
+                    callback("publico");
+                } else {
+                    console.log(jsonResponse.message);
+                    callback("privado");
+                }
+            } catch (error) {
+                console.log("Erro na resposta do servidor:", response);
+                callback("erro");
+            }
+        },
+        error: function () {
+            // Trate erros aqui
+            console.log("Erro na solicitação AJAX");
+            callback("erro");
+        }
+    });
+}
