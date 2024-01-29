@@ -4,7 +4,7 @@ require_once "conn.php";
 if (isset($_GET['idpasta'])) {
     $idpasta = $_GET['idpasta'];
 
-    // Busca os arquivos na base de dados usando a consulta SQL fornecida
+    // Busca os arquivos na base de dados usando a consulta SQL 
     $stmt = $pdo->prepare("
         SELECT
             p.idpasta,
